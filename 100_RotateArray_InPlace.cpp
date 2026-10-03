@@ -2,9 +2,29 @@
 #include <vector>
 using namespace std;
 
-void rotateMatrix(vector<vector<int>>& arr)
+void rotateMatrix(vector<vector<int>> &arr)
 {
+    int rowSize = arr.size();
+    int columnSize = arr[0].size();
     
+    for(int i = 0; i<rowSize; i++)
+    {
+        for(int j = i+1; j<columnSize; j++ )
+        {
+            int temp = arr[i][j];
+            arr[i][j] = arr[j][i];
+            arr[j][i] = temp;
+        }
+    }
+    for(int i = 0; i<rowSize; i++)
+    {
+        for(int j = 0; j<columnSize/2; j++ )
+        {
+            int temp = arr[i][j];
+            arr[i][j] = arr[i][columnSize-j-1];
+            arr[i][columnSize-j-1] = temp;
+        }
+    }
 
 }
 
