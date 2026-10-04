@@ -14,9 +14,9 @@ vector<int> twoSum(vector<int>& nums, int target)
             return {iterator->second, i };
         }
         indexMap[nums[i]] = i;
-    }
-        
+    }    
 }
+
 int main()
 {
     vector<int> nums = {1, 6, 2, 10, 3};
