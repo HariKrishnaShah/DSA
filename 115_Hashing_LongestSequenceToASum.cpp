@@ -1,45 +1,33 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include <algorithm>
 using namespace std;
 
-int longestSubarray(vector<int>& nums, int k)
+int subarraySum(vector<int>& nums, int k)
 {
-    int longestSubArray = 0;
-    unordered_map<int, int> visitedElement;
-    int sum = 0;
+    int count = 0, sum = 0;
+    unordered_map<int, int> freq;
+    freq[0] = 1; // empty prefix
 
-    for (int i = 0; i < nums.size(); i++)
+    for (int x : nums)
     {
-        sum += nums[i];
+        sum += x;
 
-        if (sum == k)
-        {
-            longestSubArray = i + 1;
-        }
+        auto it = freq.find(sum - k);
+        if (it != freq.end())
+            count += it->second; // add frequency, not 1
 
-        auto answer = visitedElement.find(sum - k);
-
-        if (answer != visitedElement.end())
-        {
-            longestSubArray = max(
-                longestSubArray,
-                i - answer->second
-            );
-        }
-
-        visitedElement.insert({sum, i});
+        freq[sum]++;
     }
 
-    return longestSubArray;
+    return count;
 }
 
 int main()
 {
-    vector<int> arr = {10, 5};
-    int k = 15;
+    vector<int> arr = {-5,-3,0,-9,-6,1,5,-7,-1,0,3,5};
+    int k = 0;
 
-    cout << "The longest subarray with sum "
-         << k << " is " << longestSubarray(arr, k) << endl;
+    cout << "The count of subarray with sum "
+         << k << " is " << subarraySum(arr, k) << endl;
 }
