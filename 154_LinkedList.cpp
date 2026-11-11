@@ -53,7 +53,9 @@ int main()
     while (option != 0)
     {
         cout << "\t\tMenu\t\t" << endl;
-        cout << "Press 0 to exit. \nPress 1 to print the linked list. \n Press 2 to add to linked list." << endl;
+        cout << "Press 0 to exit." << endl;
+        cout << "Press 1 to print the linked list." << endl;
+        cout << "Press 2 to add to linked list." << endl;
         cout << "Enter an option from below menu screen: ";
         cin >> option;
         switch (option)
