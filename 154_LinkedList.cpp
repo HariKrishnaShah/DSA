@@ -80,7 +80,7 @@ struct Node *insertAtKthPosition(Node *head, int position)
     {
         return insertAtHead(head);
     }
-    int currentPosition = -1;
+    int currentPosition = 0;
     struct Node *current = head;
     while (current != NULL && currentPosition != position - 1)
     {
@@ -117,6 +117,75 @@ struct Node *searchInList(Node *head, int data = 0)
     cout << "Data Not Found" << endl;
     return head;
 }
+
+struct Node *deleteHead(Node *head)
+{
+    if (head == NULL)
+    {
+        cout << "List is already empty." << endl;
+        return head;
+    }
+    struct Node *nextHead = head->next;
+    delete head;
+
+    return nextHead;
+}
+
+struct Node *deleteTail(Node *head)
+{
+    if (head == NULL)
+    {
+        cout << "List is already empty." << endl;
+        return head;
+    }
+    if (head->next == NULL)
+    {
+        return deleteHead(head);
+    }
+    struct Node *current = head;
+
+    while (current->next->next != NULL)
+    {
+        current = current->next;
+    }
+    delete current->next;
+    current->next = NULL;
+    return head;
+}
+struct Node *deleteKthPosition(Node *head, int position)
+{
+    if (position < 0)
+    {
+        cout << "Invalid position";
+        return head;
+    }
+    if (position == 0)
+    {
+        return deleteHead(head);
+    }
+    int currentPosition = 0;
+    struct Node *current = head;
+    while (current != NULL && currentPosition != position - 1)
+    {
+        current = current->next;
+        currentPosition++;
+    }
+    if (current == NULL || currentPosition != position - 1)
+    {
+        cout << "The list must contain elements upto " << position << " position." << endl;
+    }
+    else
+    {
+        if (current->next == NULL)
+        {
+            cout << "There isn't " << position << " th position." << endl;
+            return head;
+        }
+        delete current->next;
+        current->next = NULL;
+    }
+    return head;
+}
 int main()
 {
     struct Node *head = NULL;
@@ -131,6 +200,9 @@ int main()
         cout << "Enter 4 to insert at head." << endl;
         cout << "Enter 5 to insert at kth position." << endl;
         cout << "Enter 6 to search in list" << endl;
+        cout << "Enter 7 to delete head." << endl;
+        cout << "Enter 8 to delete tail" << endl;
+        cout << "Enter 9 to delete kth position." << endl;
         cout << "Enter an option from below menu screen: ";
 
         cin >> option;
@@ -158,6 +230,18 @@ int main()
             break;
         case 6:
             head = searchInList(head, 0);
+            break;
+        case 7:
+            head = deleteHead(head);
+            break;
+        case 8:
+            head = deleteTail(head);
+            break;
+        case 9:
+            int pos;
+            cout << "Enter the position to delete: ";
+            cin >> pos;
+            head = deleteKthPosition(head, pos);
             break;
         }
     }
