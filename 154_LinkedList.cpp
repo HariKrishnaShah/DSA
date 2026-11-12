@@ -126,7 +126,7 @@ struct Node *deleteHead(Node *head)
         return head;
     }
     struct Node *nextHead = head->next;
-    delete head;
+    free(head);
 
     return nextHead;
 }
@@ -148,7 +148,7 @@ struct Node *deleteTail(Node *head)
     {
         current = current->next;
     }
-    delete current->next;
+    free(current->next);
     current->next = NULL;
     return head;
 }
@@ -181,8 +181,9 @@ struct Node *deleteKthPosition(Node *head, int position)
             cout << "There isn't " << position << " th position." << endl;
             return head;
         }
-        delete current->next;
-        current->next = NULL;
+        struct Node *nodeToDelete = current->next;
+        current->next = nodeToDelete->next;
+        free(nodeToDelete);
     }
     return head;
 }
