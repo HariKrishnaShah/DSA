@@ -1,15 +1,30 @@
-// #include <iostream>
-// #include <vector>
-// using namespace std;
+#include <iostream>
+#include <vector>
+using namespace std;
 
-// bool canJump(vector<int> &nums)
-// {
-//     int lastIndex = nums.size() - 1;
+bool canJump(vector<int> &nums)
+{
+    int maxReach = 0;
 
-// }
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (i > maxReach)
+        {
+            return false;
+        }
 
-// int main()
-// {
-//     vector<int> arr = {2, 3, 1, 1, 4};
-//     cout << "Can we jump to last element: " << canJump(arr) << endl;
-// }
+        maxReach = max(maxReach, i + nums[i]);
+
+        if (maxReach >= nums.size() - 1)
+        {
+            return true;
+        }
+    }
+
+    return true;
+}
+int main()
+{
+    vector<int> arr = {3, 2, 1, 0, 4};
+    cout << "Can we jump to last element: " << canJump(arr) << endl;
+}
